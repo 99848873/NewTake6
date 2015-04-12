@@ -4,4 +4,11 @@
   <artifactId>take6</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>NewTake6</name>
+  <dependencies>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>4.1.6.RELEASE</version>
+    </dependency>
+</dependencies>
 </project>
