@@ -10,13 +10,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * 2015-4-12
 */
 public class StartSpring {
+	
+	private final static ApplicationContext config  = new ClassPathXmlApplicationContext("applicationContext.xml");
 		
 	public static void main(String args[]){
-		
-		ApplicationContext config = new ClassPathXmlApplicationContext("applicationContext.xml");
-		
+				
 		config.getBean(Take6.class).start();
 		
 	}
+	
+	public static ApplicationContext getConfig(){
+		return config;		
+	}
+	
 
 }
