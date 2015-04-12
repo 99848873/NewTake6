@@ -1,90 +1,187 @@
 package com.yzj.windows;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.net.URL;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
+import javax.swing.*;
 
-public class MainWindow extends JFrame {
+import org.springframework.stereotype.Component;
 
-	private JPanel contentPane;
+//import com.take6.base.action.CreatConfirmWindows;
+//import com.take6.base.action.CreatInternalWindows;
+//import com.take6.base.action.MusicSelectAction;
+//import com.take6.base.action.SystemAction;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWindow frame = new MainWindow();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public MainWindow() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+/**
+ * 实现主界面现实与刷新
+ * @author 余周锦
+ * @version 2.0
+ * 2015-4-12
+*/
+@SuppressWarnings("serial")
+@Component("mainWindow")
+public class MainWindow extends JFrame{
+	private JMenuItem about;
+	
+	/** 定义主界面中的桌面变量*/
+//	private Desktop desktop = new Desktop();;//定义一个私有的桌面对象
+	
+	/** 定义主界面的有参构造函数
+	 * @param title 主界面的题目
+	 * */
+	public MainWindow(){
+		super();//调用父类构造方法
+		initialize("谁是牛头王？");		
+		judgeState();
 		
+	}
+	
+	/** 定义主界面的初始化方法
+	 * @param title 初始化的主界面题目
+	 * */
+	private void initialize(String title){
+		
+		//创建主界面并添加一个desktop,需要修改系统图标
+		setTitle(title);
+		setBounds(0, 0, 1280, 720);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		//修改主界面风格
+		setLookAndFeel();
+		//增加logo
+//		creatLogo();
+		//创建菜单栏
+		this.creatMenu();
+//		getContentPane().add(desktop, BorderLayout.CENTER);	
+		//窗口不能改变大小
+		setResizable(false);
+	}
+	
+	/** 创建菜单栏的方法 */
+	private void creatMenu(){
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
+		//创建开始菜单
+		JMenu strat = new JMenu("开始 (S)");
+		strat.setMnemonic('S');
+		menuBar.add(strat);
+		//创建控制菜单
+		JMenu option = new JMenu("选项 (O)");
+		option.setMnemonic('C');
+		menuBar.add(option);
+		//创建帮助菜单
+		JMenu help = new JMenu("帮助 (H)");
+		help.setMnemonic('H');
+		menuBar.add(help);
 		
-		JMenu menu = new JMenu("游戏");
-		menuBar.add(menu);
+		//创建子菜单游玩模式
+		JMenu mode = new JMenu("游玩模式");
+		strat.add(mode);
+		//创建游玩模式下的菜单项
+		JMenuItem singleP = new JMenuItem("单人模式");
+		singleP.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_MASK));//增加快捷键
+		singleP.setActionCommand("Single Play");
+//		singleP.addActionListener(new CreatConfirmWindows(desktop));
+		mode.add(singleP);
+		//创建游玩模式下的菜单项
+		JMenuItem olineP = new JMenuItem("在线模式");
+		olineP.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,InputEvent.CTRL_MASK));//增加快捷键
+		olineP.setActionCommand("Online Play");
+//		olineP.addActionListener(new CreatConfirmWindows(desktop));
+		mode.add(olineP);
 		
-		JMenu menu_1 = new JMenu("开始游戏");
-		menu.add(menu_1);
+		//创建strat下菜单项3
+		JMenuItem reset = new JMenuItem("重置");
+		reset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,InputEvent.CTRL_MASK));//增加快捷键
+		reset.setActionCommand("Reset");
+//		reset.addActionListener(new SystemAction(desktop));
+		strat.add(reset);
+		//创建strat下菜单项4
+		JMenuItem exit = new JMenuItem("退出");
+		exit.setActionCommand("Exit");
+//		exit.addActionListener(new SystemAction(desktop));
+		strat.add(exit);
 		
-		JMenuItem menuItem = new JMenuItem("单人游戏");
-		menu_1.add(menuItem);
+		//创建子菜单背景音乐
+		JMenu backmusic = new JMenu("背景音乐");
+		option.add(backmusic);
+		//创建背景音乐下菜单
+		JRadioButtonMenuItem musicoption = new JRadioButtonMenuItem("关闭背景音乐");
+		musicoption.setSelected(true);
+		musicoption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,InputEvent.CTRL_MASK));
+//		musicoption.addItemListener(new MusicSelectAction(musicoption));
+		backmusic.add(musicoption);	
 		
-		JMenuItem menuItem_1 = new JMenuItem("多人游戏");
-		menu_1.add(menuItem_1);
-		
-		JMenuItem menuItem_2 = new JMenuItem("重置游戏");
-		menu.add(menuItem_2);
-		
-		JMenuItem menuItem_3 = new JMenuItem("退出");
-		menu.add(menuItem_3);
-		
-		JMenu menu_2 = new JMenu("配置");
-		menuBar.add(menu_2);
-		
-		JMenu menu_3 = new JMenu("游戏音乐");
-		menu_2.add(menu_3);
-		
-		JMenuItem menuItem_6 = new JMenuItem("开背景音乐");
-		menu_3.add(menuItem_6);
-		
-		JMenuItem menuItem_7 = new JMenuItem("关背景音乐");
-		menu_3.add(menuItem_7);
-		
-		JMenuItem menuItem_5 = new JMenuItem("个人信息");
-		menu_2.add(menuItem_5);
-		
-		JMenu menu_4 = new JMenu("帮助");
-		menuBar.add(menu_4);
-		
-		JMenuItem menuItem_4 = new JMenuItem("游戏规则");
-		menu_4.add(menuItem_4);
-		
-		JMenuItem mntmtake = new JMenuItem("关于Take6");
-		menu_4.add(mntmtake);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		JMenuItem changeUserInfo = new JMenuItem("修改用户信息");
+		changeUserInfo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U,InputEvent.CTRL_MASK));//增加快捷键
+		changeUserInfo.setActionCommand("changeUserInfo");
+//		changeUserInfo.addActionListener(new CreatInternalWindows(desktop));
+		option.add(changeUserInfo);
+		//创建help下菜单项5
+		JMenuItem rule = new JMenuItem("规则");
+		rule.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,InputEvent.CTRL_MASK));//增加快捷键
+		rule.setActionCommand("Rule");
+//		rule.addActionListener(new CreatInternalWindows(desktop));
+		help.add(rule);
+		//创建help下菜单项6
+		about = new JMenuItem("关于");
+//		about.addActionListener(new CreatInternalWindows(desktop));
+		about.setActionCommand("About");;
+		help.add(about);
 	}
+	
+	/** 定义判断是否第一次游玩的方法 */
+	private void judgeState(){
 
+//		File file = new File("./config/userInfo");
+//		
+//		if(file.exists()){
+//			System.out.println("不是第一次又玩游戏");
+//			
+//		}else{
+//			boolean state = true;
+			
+//			InternalWindows hintWindow = new InternalWindows(desktop,state);
+//			
+//			desktop.add(hintWindow);
+			
+//			try{
+//				hintWindow.setSelected(true);
+//			}catch(PropertyVetoException e){
+//				e.printStackTrace();
+//			}
+//			try{
+//				file.createNewFile();
+//			}catch(Exception e){
+//				System.out.println("创建文件失败");
+//			}
+//		}
+
+	}
+	
+	/**创建主界面图标*/
+	private void creatLogo(){
+		
+		URL logoPath = this.getClass().getResource("/com/take6/source/picture/logo.png");
+		ImageIcon icon = new ImageIcon(logoPath);
+		setIconImage(icon.getImage());
+		
+	}
+	
+	/**修改界面皮肤*/
+	private void setLookAndFeel() {
+		try{
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+			 
+//	public Desktop getDesktop() {
+//		
+//		return desktop;
+//		
+//	}
+	
 }
