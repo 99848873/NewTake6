@@ -1,7 +1,6 @@
 package com.yzj.windows;
 
 import org.junit.Test;
-import org.junit.rules.Verifier;
 
 import com.yzj.StartSpring;
 
