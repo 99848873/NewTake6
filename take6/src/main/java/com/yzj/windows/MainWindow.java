@@ -8,6 +8,9 @@ import java.net.URL;
 import javax.swing.*;
 
 import org.springframework.stereotype.Component;
+import java.awt.Color;
+import javax.swing.border.BevelBorder;
+import java.awt.Dimension;
 
 //import com.take6.base.action.CreatConfirmWindows;
 //import com.take6.base.action.CreatInternalWindows;
@@ -23,7 +26,7 @@ import org.springframework.stereotype.Component;
 @SuppressWarnings("serial")
 @Component("mainWindow")
 public class MainWindow extends JFrame{
-	private JMenuItem about;
+	
 	
 	/** 定义主界面中的桌面变量*/
 //	private Desktop desktop = new Desktop();;//定义一个私有的桌面对象
@@ -32,6 +35,7 @@ public class MainWindow extends JFrame{
 	 * @param title 主界面的题目
 	 * */
 	public MainWindow(){
+		
 		super();//调用父类构造方法
 		initialize("谁是牛头王？");		
 		judgeState();
@@ -50,12 +54,32 @@ public class MainWindow extends JFrame{
 		//修改主界面风格
 		setLookAndFeel();
 		//增加logo
-//		creatLogo();
+		creatLogo();
 		//创建菜单栏
-		this.creatMenu();
-//		getContentPane().add(desktop, BorderLayout.CENTER);	
-		//窗口不能改变大小
-		setResizable(false);
+		creatMenu();
+		
+		//窗口不能改变大小,不启用
+//		setResizable(false);
+		setMinimumSize(new Dimension(320, 180));
+		setMaximumSize(new Dimension(1280, 720));
+		
+		int width = this.getWidth();
+		int height = this.getHeight();
+		
+		getContentPane().setSize(width, height);
+		
+		
+		JDesktopPane desktopPane = new JDesktopPane();
+		desktopPane.setOpaque(false);
+		desktopPane.setSize(width, height);
+		
+		JLayeredPane layeredPane = new BackGround();
+		layeredPane.setSize(width, height);
+		desktopPane.add(layeredPane, BorderLayout.CENTER);
+		
+		getContentPane().add(desktopPane, BorderLayout.CENTER);
+				
+		
 	}
 	
 	/** 创建菜单栏的方法 */
@@ -76,16 +100,16 @@ public class MainWindow extends JFrame{
 		menuBar.add(help);
 		
 		//创建子菜单游玩模式
-		JMenu mode = new JMenu("游玩模式");
+		JMenu mode = new JMenu("模式");
 		strat.add(mode);
 		//创建游玩模式下的菜单项
-		JMenuItem singleP = new JMenuItem("单人模式");
+		JMenuItem singleP = new JMenuItem("单人");
 		singleP.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_MASK));//增加快捷键
 		singleP.setActionCommand("Single Play");
 //		singleP.addActionListener(new CreatConfirmWindows(desktop));
 		mode.add(singleP);
 		//创建游玩模式下的菜单项
-		JMenuItem olineP = new JMenuItem("在线模式");
+		JMenuItem olineP = new JMenuItem("多人");
 		olineP.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,InputEvent.CTRL_MASK));//增加快捷键
 		olineP.setActionCommand("Online Play");
 //		olineP.addActionListener(new CreatConfirmWindows(desktop));
@@ -99,21 +123,19 @@ public class MainWindow extends JFrame{
 		strat.add(reset);
 		//创建strat下菜单项4
 		JMenuItem exit = new JMenuItem("退出");
+		exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
 		exit.setActionCommand("Exit");
 //		exit.addActionListener(new SystemAction(desktop));
 		strat.add(exit);
 		
-		//创建子菜单背景音乐
-		JMenu backmusic = new JMenu("背景音乐");
-		option.add(backmusic);
 		//创建背景音乐下菜单
-		JRadioButtonMenuItem musicoption = new JRadioButtonMenuItem("关闭背景音乐");
+		JRadioButtonMenuItem musicoption = new JRadioButtonMenuItem("背景音乐");
 		musicoption.setSelected(true);
 		musicoption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,InputEvent.CTRL_MASK));
 //		musicoption.addItemListener(new MusicSelectAction(musicoption));
-		backmusic.add(musicoption);	
+		option.add(musicoption);	
 		
-		JMenuItem changeUserInfo = new JMenuItem("修改用户信息");
+		JMenuItem changeUserInfo = new JMenuItem("用户信息");
 		changeUserInfo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U,InputEvent.CTRL_MASK));//增加快捷键
 		changeUserInfo.setActionCommand("changeUserInfo");
 //		changeUserInfo.addActionListener(new CreatInternalWindows(desktop));
@@ -125,7 +147,8 @@ public class MainWindow extends JFrame{
 //		rule.addActionListener(new CreatInternalWindows(desktop));
 		help.add(rule);
 		//创建help下菜单项6
-		about = new JMenuItem("关于");
+		JMenuItem about = new JMenuItem("关于");
+		about.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
 //		about.addActionListener(new CreatInternalWindows(desktop));
 		about.setActionCommand("About");;
 		help.add(about);
@@ -134,37 +157,14 @@ public class MainWindow extends JFrame{
 	/** 定义判断是否第一次游玩的方法 */
 	private void judgeState(){
 
-//		File file = new File("./config/userInfo");
-//		
-//		if(file.exists()){
-//			System.out.println("不是第一次又玩游戏");
-//			
-//		}else{
-//			boolean state = true;
-			
-//			InternalWindows hintWindow = new InternalWindows(desktop,state);
-//			
-//			desktop.add(hintWindow);
-			
-//			try{
-//				hintWindow.setSelected(true);
-//			}catch(PropertyVetoException e){
-//				e.printStackTrace();
-//			}
-//			try{
-//				file.createNewFile();
-//			}catch(Exception e){
-//				System.out.println("创建文件失败");
-//			}
-//		}
+
 
 	}
 	
 	/**创建主界面图标*/
 	private void creatLogo(){
 		
-		URL logoPath = this.getClass().getResource("/com/take6/source/picture/logo.png");
-		ImageIcon icon = new ImageIcon(logoPath);
+		ImageIcon icon = new ImageIcon("./src/main/resources/logo.png");
 		setIconImage(icon.getImage());
 		
 	}
@@ -177,11 +177,4 @@ public class MainWindow extends JFrame{
 			e.printStackTrace();
 		}
 	}
-			 
-//	public Desktop getDesktop() {
-//		
-//		return desktop;
-//		
-//	}
-	
 }
