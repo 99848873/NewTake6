@@ -7,9 +7,6 @@ public class BackGroundTest {
 	
 	@Test
 	public void backGroundTest(){
-		
-		MainWindow mw = new MainWindow();
-		mw.setVisible(true);
 				
 	}
 

@@ -3,13 +3,10 @@ package com.yzj.windows;
 import java.awt.BorderLayout;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.net.URL;
 
 import javax.swing.*;
 
 import org.springframework.stereotype.Component;
-import java.awt.Color;
-import javax.swing.border.BevelBorder;
 import java.awt.Dimension;
 
 //import com.take6.base.action.CreatConfirmWindows;

@@ -3,21 +3,17 @@ package com.yzj.windows;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.File;
 
 import javax.swing.JLayeredPane;
 
-import com.yzj.util.DirList;
-
+@SuppressWarnings("serial")
 public class BackGround extends JLayeredPane {
 	
 	private Image backGround;
 	
 	public BackGround(){
 		super();
-		setLayer(this, 0);//设置该Panel在最底层
-		//打印当前目录位置
-//		DirList.fileList(".");		  
+		setLayer(this, 0);//设置该Panel在最底层  
 		backGround = Toolkit.getDefaultToolkit().getImage("./src/main/resources/background1.png");		
 	}
 	
