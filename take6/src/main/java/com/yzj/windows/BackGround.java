@@ -4,11 +4,28 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import javax.swing.JLayeredPane;
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.swing.JDesktopPane;
 
+import org.springframework.stereotype.Component;
+
+
+/**
+ * 当前桌面背景，同时也是一个内部桌面
+ * @author 余周锦
+ * @version 2.0
+ * 2015-4-21
+*/
 @SuppressWarnings("serial")
-public class BackGround extends JLayeredPane {
+@Component
+public class BackGround extends JDesktopPane{
 	
+	@Resource
+	private PlayPanel playPanel;
+	
+	private int width;
+	private int height;
 	private Image backGround;
 	
 	public BackGround(){
@@ -17,16 +34,22 @@ public class BackGround extends JLayeredPane {
 		backGround = Toolkit.getDefaultToolkit().getImage("./src/main/resources/background1.png");		
 	}
 	
+	
+	@PostConstruct
+	public void initialize(){
+		add(playPanel);
+	}
+		
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO 自动生成的方法存根
+		//覆盖paint钩子刷新界面
 		super.paintComponent(g);
-		int width = this.getParent().getWidth();
-		int height = this.getParent().getHeight();
+		width = this.getParent().getWidth();
+		height = this.getParent().getHeight();
 		if(backGround !=null){
 			g.drawImage(backGround, 0, 0, width, height, this);
 		}
-		
+		System.out.println("当前BackGround大小为"+width+"*"+height);
 	}
 
 }

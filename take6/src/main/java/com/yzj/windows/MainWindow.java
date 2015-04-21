@@ -4,9 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.swing.*;
 
 import org.springframework.stereotype.Component;
+
 import java.awt.Dimension;
 
 //import com.take6.base.action.CreatConfirmWindows;
@@ -26,59 +29,52 @@ public class MainWindow extends JFrame{
 	
 	
 	/** 定义主界面中的桌面变量*/
-//	private Desktop desktop = new Desktop();;//定义一个私有的桌面对象
+	@Resource
+	private BackGround backGround;
+	
+	private int width;
+	private int height;
+	
 	
 	/** 定义主界面的有参构造函数
 	 * @param title 主界面的题目
 	 * */
 	public MainWindow(){
 		
-		super();//调用父类构造方法
-		initialize("谁是牛头王？");		
-		judgeState();
-		
+		super();
+				
 	}
 	
 	/** 定义主界面的初始化方法
 	 * @param title 初始化的主界面题目
 	 * */
-	private void initialize(String title){
-		
+	@PostConstruct
+	private void initialize(){
+			
 		//创建主界面并添加一个desktop,需要修改系统图标
-		setTitle(title);
+		setTitle("谁是牛头王?");
 		setBounds(0, 0, 1280, 720);
+		setMinimumSize(new Dimension(960, 540));
+		setMaximumSize(new Dimension(1280, 720));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		width = this.getWidth();
+		height = this.getHeight();
+		
 		//修改主界面风格
 		setLookAndFeel();
 		//增加logo
 		creatLogo();
 		//创建菜单栏
 		creatMenu();
-		
-		//窗口不能改变大小,不启用
-//		setResizable(false);
-		setMinimumSize(new Dimension(320, 180));
-		setMaximumSize(new Dimension(1280, 720));
-		
-		int width = this.getWidth();
-		int height = this.getHeight();
-		
+					
 		getContentPane().setSize(width, height);
 		
+		getContentPane().add(backGround, BorderLayout.CENTER);
 		
-		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setOpaque(false);
-		desktopPane.setSize(width, height);
-		
-		JLayeredPane layeredPane = new BackGround();
-		layeredPane.setSize(width, height);
-		desktopPane.add(layeredPane, BorderLayout.CENTER);
-		
-		getContentPane().add(desktopPane, BorderLayout.CENTER);
-				
-		
-	}
-	
+		judgeState();
+					
+	}	
+
 	/** 创建菜单栏的方法 */
 	private void creatMenu(){
 		JMenuBar menuBar = new JMenuBar();
