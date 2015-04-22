@@ -11,7 +11,7 @@ public class SpringTest {
 	public void springTest(){
 				
 		@SuppressWarnings("resource")
-		ApplicationContext config  = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ApplicationContext config  = new ClassPathXmlApplicationContext("config/applicationContext.xml");
 		config.getBean("take6");
 		config.getBean("mainWindow");
 		config.getBean("backGround");

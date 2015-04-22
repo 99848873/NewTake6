@@ -10,6 +10,9 @@ import javax.swing.*;
 
 import org.springframework.stereotype.Component;
 
+import com.yzj.config.Preference;
+import com.yzj.util.LogConfig;
+
 import java.awt.Dimension;
 
 //import com.take6.base.action.CreatConfirmWindows;
@@ -31,6 +34,12 @@ public class MainWindow extends JFrame{
 	/** 定义主界面中的桌面变量*/
 	@Resource
 	private BackGround backGround;
+	
+	@Resource 
+	private Preference preference;
+	
+	@Resource 
+	private LogConfig log;
 	
 	private int width;
 	private int height;
@@ -150,7 +159,19 @@ public class MainWindow extends JFrame{
 	/** 定义判断是否第一次游玩的方法 */
 	private void judgeState(){
 
-
+		int time = preference.getPf().getInt("time", 0 );
+		
+		if(time == 0){
+			
+			preference.getPf().putInt("time", 1);
+			log.getLog().info("第一次启动游戏，默认初始化用户信息");
+			preference.creatDefaultInfo();
+					
+		}else{
+						
+			log.getLog().info("不是第一次启动游戏，初始化用户信息");
+		
+		}
 
 	}
 	

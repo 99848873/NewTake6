@@ -31,7 +31,7 @@ public class BackGround extends JDesktopPane{
 	public BackGround(){
 		super();
 		setLayer(this, 0);//设置该Panel在最底层  
-		backGround = Toolkit.getDefaultToolkit().getImage("./src/main/resources/background1.png");		
+		backGround = Toolkit.getDefaultToolkit().getImage("./src/main/resources/syspic/background1.png");		
 	}
 	
 	
@@ -49,7 +49,7 @@ public class BackGround extends JDesktopPane{
 		if(backGround !=null){
 			g.drawImage(backGround, 0, 0, width, height, this);
 		}
-		System.out.println("当前BackGround大小为"+width+"*"+height);
+//		System.out.println("当前BackGround大小为"+width+"*"+height);
 	}
 
 }

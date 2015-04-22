@@ -11,7 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 */
 public class StartSpring {
 	
-	private final static ApplicationContext config  = new ClassPathXmlApplicationContext("applicationContext.xml");
+	private final static ApplicationContext config  = new ClassPathXmlApplicationContext("config/applicationContext.xml");
 		
 	public static void main(String args[]){
 				
