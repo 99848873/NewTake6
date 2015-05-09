@@ -16,23 +16,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class PlayPanel extends JLayeredPane {
 	
-	private int width;
-	private int height;
-	
 	public PlayPanel(){		
 		super();
-		setOpaque(false);		
+		setOpaque(false);
+		setBounds(0,0,1,1);
 	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		//覆盖paint钩子刷新界面
 		super.paintComponent(g);
-		width = this.getParent().getWidth();
-		height = this.getParent().getHeight();
+		int width = this.getParent().getWidth();
+		int height = this.getParent().getHeight();
 		setSize(width,height);
 		System.out.println("当前PlayPanel大小为"+width+"*"+height);
-		
 	}
 
 }
