@@ -28,7 +28,7 @@ public class PlayPanel extends JLayeredPane {
 		int width = this.getParent().getWidth();
 		int height = this.getParent().getHeight();
 		setSize(width,height);
-		System.out.println("当前PlayPanel大小为"+width+"*"+height);
+//		System.out.println("当前PlayPanel大小为"+width+"*"+height);
 	}
 
 }
