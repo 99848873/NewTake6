@@ -15,10 +15,8 @@ public class Preference {
 		pf.put("head", "./src/main/resources/headpic/head1.png");
 	}
 	
-	public Preferences getPf(){
-		
-		return pf;
-		
+	public Preferences getPf(){		
+		return pf;		
 	}
 
 }

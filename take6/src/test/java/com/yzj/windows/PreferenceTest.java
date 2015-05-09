@@ -25,8 +25,7 @@ public class PreferenceTest {
 		
 		preference.getPf().putInt("time", 0);
 				
-		log.getLog().info("将配置信息初始化为"+preference.getPf().getInt("time", 0));
-		
+		log.getLog().info("将配置信息初始化为"+preference.getPf().getInt("time", 0));		
 		
 	}
 }

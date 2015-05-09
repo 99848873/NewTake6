@@ -1,27 +1,33 @@
 package com.yzj;
 
 import java.awt.EventQueue;
-
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Controller;
-
+import com.yzj.config.Preference;
+import com.yzj.util.LogConfig;
 import com.yzj.windows.MainWindow;
 
 /**
- * 启动主界面线程
+ * 启动主界面线程并判断初始化信息
+ * 
  * @author 余周锦
- * @version 2.0
- * 2015-4-12
-*/
+ * @version 2.0 2015-4-12
+ */
 @Controller
 public class Take6 {
-	
-	//自动注入主界面窗口
+
 	@Resource
 	private MainWindow mainWindow;
-	
-	//启动主界面线程
+
+	@Resource
+	private Preference preference;
+
+	@Resource
+	private LogConfig log;
+
+	// 启动主界面
+	@PostConstruct
 	public void start() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -32,6 +38,27 @@ public class Take6 {
 				}
 			}
 		});
+		judgeState();
+	}
+
+	/* 定义判断是否第一次游玩的方法 */
+	private void judgeState() {
+
+		int time = preference.getPf().getInt("time", 0);
+		if (time == 0) {
+			preference.getPf().putInt("time", 1);
+			log.getLog().info("第一次启动游戏，初始化用户信息");
+			preference.creatDefaultInfo();
+			creatPreferenceWindow();
+		} else {
+			log.getLog().info("不是第一次启动游戏");
+		}
+
+	}
+
+	/* 创建选择头像及编辑用户名的窗口 */
+	private void creatPreferenceWindow() {
+		
 	}
 
 }

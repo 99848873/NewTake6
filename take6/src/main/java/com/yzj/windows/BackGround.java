@@ -24,8 +24,6 @@ public class BackGround extends JDesktopPane{
 	@Resource
 	private PlayPanel playPanel;
 	
-	private int width;
-	private int height;
 	private Image backGround;
 	
 	public BackGround(){
@@ -44,8 +42,8 @@ public class BackGround extends JDesktopPane{
 	protected void paintComponent(Graphics g) {
 		//覆盖paint钩子刷新界面
 		super.paintComponent(g);
-		width = this.getParent().getWidth();
-		height = this.getParent().getHeight();
+		int width = this.getParent().getWidth();
+		int height = this.getParent().getHeight();
 		if(backGround !=null){
 			g.drawImage(backGround, 0, 0, width, height, this);
 		}
