@@ -5,7 +5,7 @@ import java.beans.PropertyVetoException;
 import javax.swing.JInternalFrame;
 
 /**
- * 启动主界面线程并判断初始化信息
+ * 内部窗体模板接口
  * 
  * @author 余周锦
  * @version 2.0 2015-5-09
