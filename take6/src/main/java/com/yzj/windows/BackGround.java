@@ -55,7 +55,7 @@ public class BackGround extends JDesktopPane {
 		if (backGround != null) {
 			g.drawImage(backGround, 0, 0, width, height, this);
 		}
-		// System.out.println("当前BackGround大小为"+width+"*"+height);
+//		 System.out.println("当前BackGround大小为"+width+"*"+height);
 	}
 
 	public void showWindow(final InternalWindow internalWindow) {
