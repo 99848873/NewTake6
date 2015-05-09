@@ -3,10 +3,13 @@ package com.yzj.windows;
 import java.awt.BorderLayout;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.swing.*;
+
 import org.springframework.stereotype.Component;
+
 import java.awt.Dimension;
 
 /**
@@ -40,6 +43,7 @@ public class MainWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int width = this.getWidth();
 		int height = this.getHeight();
+		backGround.setSize(width, height);
 		getContentPane().setSize(width, height);
 		getContentPane().add(backGround, BorderLayout.CENTER);
 	}
