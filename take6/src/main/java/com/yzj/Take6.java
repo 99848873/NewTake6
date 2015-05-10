@@ -7,11 +7,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 
-import com.yzj.api.InternalWindow;
 import com.yzj.config.Preference;
 import com.yzj.util.LogConfig;
+import com.yzj.util.WindowsName;
 import com.yzj.windows.MainWindow;
-import com.yzj.windows.internalwindow.InWindowCenter;
 
 /**
  * 启动主界面线程并判断初始化信息
@@ -24,9 +23,6 @@ public class Take6 {
 
 	@Resource
 	private MainWindow mainWindow;
-
-	@Resource
-	private InWindowCenter inWindowCenter;
 
 	@Resource
 	private Preference preference;
@@ -68,8 +64,7 @@ public class Take6 {
 
 	/* 创建选择头像及编辑用户名的窗口 */
 	private void creatPreferenceWindow() {
-		InternalWindow inWindow = inWindowCenter.getInWindow("preference1");
-		mainWindow.getBackGround().showWindow(inWindow);
+		mainWindow.getBackGround().showInWindow(WindowsName.FirstPreference);
 	}
 
 }
