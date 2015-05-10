@@ -43,9 +43,12 @@ public class BackGround extends JDesktopPane {
 
 	private Map<WindowsName, InternalWindow> internalWindows = new HashMap<WindowsName, InternalWindow>();
 
+	private String backGroundPath;
+	
 	public BackGround() {
 		super();
 		setLayer(this, -1);// 设置该Panel在最底层
+		this.backGroundPath = "./src/main/resources/syspic/background1.png";
 	}
 
 	@PostConstruct
@@ -56,8 +59,7 @@ public class BackGround extends JDesktopPane {
 	@Override
 	protected void paintComponent(Graphics g) {
 		// 覆盖paint钩子刷新界面
-		Image backGround = Toolkit.getDefaultToolkit().getImage(
-				"./src/main/resources/syspic/background1.png");
+		Image backGround = Toolkit.getDefaultToolkit().getImage(backGroundPath);
 		super.paintComponent(g);
 		int width = this.getParent().getWidth();
 		int height = this.getParent().getHeight();
