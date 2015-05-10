@@ -4,17 +4,23 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-
+import java.beans.Beans;
 import java.beans.PropertyVetoException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 
 import org.springframework.stereotype.Component;
 
 import com.yzj.api.InternalWindow;
 import com.yzj.util.LogConfig;
+import com.yzj.util.WindowsName;
+import com.yzj.windows.internalwindow.ContentWindow;
+import com.yzj.windows.internalwindow.InWindowCreater;
 
 /**
  * 当前桌面背景，同时也是一个内部桌面
@@ -32,13 +38,14 @@ public class BackGround extends JDesktopPane {
 	@Resource
 	private LogConfig log;
 
-	private Image backGround;
+	@Resource
+	private InWindowCreater inWindowCreater;
+
+	private Map<WindowsName, InternalWindow> internalWindows = new HashMap<WindowsName, InternalWindow>();
 
 	public BackGround() {
 		super();
-		setLayer(this, 0);// 设置该Panel在最底层
-		backGround = Toolkit.getDefaultToolkit().getImage(
-				"./src/main/resources/syspic/background1.png");
+		setLayer(this, -1);// 设置该Panel在最底层
 	}
 
 	@PostConstruct
@@ -49,35 +56,102 @@ public class BackGround extends JDesktopPane {
 	@Override
 	protected void paintComponent(Graphics g) {
 		// 覆盖paint钩子刷新界面
+		Image backGround = Toolkit.getDefaultToolkit().getImage(
+				"./src/main/resources/syspic/background1.png");
 		super.paintComponent(g);
 		int width = this.getParent().getWidth();
 		int height = this.getParent().getHeight();
 		if (backGround != null) {
 			g.drawImage(backGround, 0, 0, width, height, this);
 		}
-//		 System.out.println("当前BackGround大小为"+width+"*"+height);
+		// System.out.println("当前BackGround大小为"+width+"*"+height);
 	}
 
-	public void showWindow(final InternalWindow internalWindow) {
+	/**
+	 * 显示内部窗口方法
+	 * 
+	 * @param name
+	 *            需要显示的内部窗口名字
+	 */
+	public void showInWindow(WindowsName name) {
+		final InternalWindow internalWindow = getInWindow(name);
+		
 		if (internalWindow != null && internalWindow.isClosed()) {
-			add(internalWindow);
 			log.getLog().info("开始启动窗口");
+			reLocateWindow(internalWindow);
 			try {
+				internalWindow.setClosed(false);
 				internalWindow.setSelected(true);
 			} catch (PropertyVetoException e) {
-				log.getLog().warn("无法选中该窗口");
+				log.getLog().warn("设置该窗口状态失败");
 			}
-
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						internalWindow.createContent();
 						internalWindow.setVisible(true);
 					} catch (Exception e) {
 						log.getLog().warn("无法显示该窗口");
 					}
 				}
+				
 			});
+
 		}
 	}
+
+	/**
+	 * 获得相应的内部窗体
+	 * 
+	 * @param name
+	 *            需要的内部窗体
+	 * @return 内部窗体
+	 */
+	private InternalWindow getInWindow(WindowsName name) {
+		InternalWindow inWindow = internalWindows.get(name);
+		
+		if (inWindow == null) {
+			inWindow = inWindowCreater.create(name);
+			add(inWindow);
+			inWindow.createContent();
+			internalWindows.put(name, inWindow);
+		}
+		return inWindow;
+	}
+
+	/**
+	 * 重新定制内部窗体位置
+	 * 
+	 * @param inWindow
+	 */
+	private void reLocateWindow(InternalWindow inWindow) {
+		
+		if (Beans.isInstanceOf(inWindow, ContentWindow.class)) {
+			int x = 0;
+			int y = 0;
+			if (this.getFrontWindow() != null) {
+				if (getFrontWindow().isShowing()) {
+					x = this.getFrontWindow().getX() - 10;
+					y = this.getFrontWindow().getY() + 22;
+				}
+				inWindow.setLocation(x, y);
+			}
+
+		}
+
+	}
+
+	/**
+	 * 获得当前第一个内容窗体
+	 * 
+	 * @return 返回第一个内容窗体
+	 */
+	private InternalWindow getFrontWindow() {
+		JInternalFrame[] inWindows = getAllFrames();
+		for (JInternalFrame inWindow : inWindows) {
+			if (Beans.isInstanceOf(inWindow, ContentWindow.class))
+				return (InternalWindow) inWindow;
+		}
+		return null;
+	}
+
 }
