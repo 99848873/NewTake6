@@ -4,7 +4,12 @@ import java.util.prefs.Preferences;
 
 import org.springframework.stereotype.Component;
 
-
+/**
+ * 创建偏好设置节点
+ * 
+ * @author 余周锦
+ * @version 2.0 2015-5-10
+ */
 @Component
 public class Preference {
 	
