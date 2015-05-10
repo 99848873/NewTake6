@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author 余周锦
  * @version 2.0 2015-4-12
  */
-public class StartSpring {
+public class StartGame {
 
 	private final static ApplicationContext config = new ClassPathXmlApplicationContext(
 			"config/applicationContext.xml");
