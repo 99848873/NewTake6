@@ -14,7 +14,7 @@ import javax.swing.JInternalFrame;
 public abstract class InternalWindow extends JInternalFrame {
 
 	public InternalWindow(String name) {
-		super(name, false, false, false, false);
+		super(name, false, true, false, false);
 		try {
 			setClosed(true);
 		} catch (PropertyVetoException e) {
@@ -23,6 +23,12 @@ public abstract class InternalWindow extends JInternalFrame {
 		}
 	}
 
-	public abstract void createContent();
+	public void createContent() {
+		setDisLocation();
+		iniContent();
+	};
 
+	protected abstract void setDisLocation();
+
+	protected abstract void iniContent();
 }
