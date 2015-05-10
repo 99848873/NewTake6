@@ -21,8 +21,7 @@ public class LogTest {
 	public void testLog(){
 		
 		log.getLog().info("测试log功能");
-		
-		
+			
 	}
 	
 
