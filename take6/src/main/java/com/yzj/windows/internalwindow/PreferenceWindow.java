@@ -10,6 +10,9 @@ import javax.swing.SwingConstants;
 
 import com.yzj.api.InternalWindow;
 import com.yzj.config.Preference;
+import com.yzj.element.Head;
+import com.yzj.util.HeadCreater;
+import javax.swing.BoxLayout;
 
 /**
  * 偏好设置内部窗口
@@ -19,7 +22,7 @@ import com.yzj.config.Preference;
  */
 @SuppressWarnings("serial")
 public class PreferenceWindow extends InternalWindow {
-	
+
 	private Preference preference;
 
 	private boolean state;
@@ -30,9 +33,9 @@ public class PreferenceWindow extends InternalWindow {
 		setTitle("偏好设置");
 		setClosable(state);
 	}
-	
+
 	@Override
-	protected void setDisLocation(){		
+	protected void setDisLocation() {
 		int parentWidth = this.getParent().getWidth();
 		int parentHeight = this.getParent().getHeight();
 		int width = parentWidth / 4;
@@ -40,27 +43,33 @@ public class PreferenceWindow extends InternalWindow {
 		int x = parentWidth * 3 / 8;
 		int y = parentHeight * 1 / 4;
 		setBounds(x, y, width, height);
-		getContentPane().setSize(width, height);		
+		getContentPane().setSize(width, height);
 	}
 
 	@Override
 	protected void iniContent() {
-		// TODO 自动生成的方法存根
-		preference.getPf().get("name", "player");
+
 		JPanel hintPanel = new JPanel();
 		getContentPane().add(hintPanel, BorderLayout.NORTH);
 		JLabel hintlabel = new JLabel("您可以修改昵称以及头像");
-		hintPanel.getParent().getWidth();
 		hintlabel.setHorizontalAlignment(SwingConstants.CENTER);
 		hintPanel.add(hintlabel);
 
-		// 创建头像及用户名信息区域
+		//TODO 修改infoPanel的布局,让布局更清爽
 		JPanel infoPanel = new JPanel();
 		getContentPane().add(infoPanel, BorderLayout.CENTER);
+		Head head = HeadCreater.creatHead(preference.getPf().get("head",
+				"./src/main/resources/headpic/head1.gif"));
+		infoPanel.add(head);
+		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.X_AXIS));
 
+		
+//		JButton changeButton = new JButton("修改");
+		
 		// 创建按钮区域
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout());
+		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
 		JButton confirmButton = new JButton("确认信息");
 		confirmButton.setActionCommand("confirm");
@@ -69,15 +78,15 @@ public class PreferenceWindow extends InternalWindow {
 
 		buttonPanel.add(confirmButton);
 
-		if (state) {
+		if (!state) {
 			JButton hintButton = new JButton("查看规则");
 			hintButton.setActionCommand("Rule");
 			// hintButton.addActionListener(new CreatInternalWindows(desktop));
 			buttonPanel.add(hintButton);
 		}
 
-		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-		
+
+
 	}
 
 	public void setPreference(Preference preference) {

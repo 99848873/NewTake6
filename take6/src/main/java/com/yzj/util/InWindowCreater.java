@@ -1,4 +1,4 @@
-package com.yzj.windows.internalwindow;
+package com.yzj.util;
 
 import javax.annotation.Resource;
 
@@ -6,7 +6,8 @@ import org.springframework.stereotype.Component;
 
 import com.yzj.api.InternalWindow;
 import com.yzj.config.Preference;
-import com.yzj.util.WindowsName;
+import com.yzj.windows.internalwindow.ContentWindow;
+import com.yzj.windows.internalwindow.PreferenceWindow;
 
 /**
  * 内部制造器

@@ -17,7 +17,7 @@ public class Preference {
 		
 	public void creatDefaultInfo(){
 		pf.put("name", "Player");
-		pf.put("head", "./src/main/resources/headpic/head1.png");
+		pf.put("head", "./src/main/resources/headpic/head1.gif");
 	}
 	
 	public Preferences getPf(){		

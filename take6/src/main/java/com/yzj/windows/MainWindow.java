@@ -24,7 +24,7 @@ public class MainWindow extends JFrame {
 
 	@Resource
 	private BackGround backGround;
-
+	
 	/** 定义主界面的初始化方法 */
 	@PostConstruct
 	private void initialize() {
@@ -43,7 +43,6 @@ public class MainWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int width = this.getWidth();
 		int height = this.getHeight();
-		backGround.setSize(width, height);
 		getContentPane().setSize(width, height);
 		getContentPane().add(backGround, BorderLayout.CENTER);
 	}

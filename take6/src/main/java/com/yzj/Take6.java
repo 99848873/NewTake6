@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import com.yzj.config.Preference;
 import com.yzj.util.LogConfig;
@@ -18,7 +18,7 @@ import com.yzj.windows.MainWindow;
  * @author 余周锦
  * @version 2.0 2015-4-12
  */
-@Controller
+@Component
 public class Take6 {
 
 	@Resource

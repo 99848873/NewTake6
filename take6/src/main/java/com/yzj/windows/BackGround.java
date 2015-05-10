@@ -17,10 +17,10 @@ import javax.swing.JInternalFrame;
 import org.springframework.stereotype.Component;
 
 import com.yzj.api.InternalWindow;
+import com.yzj.util.InWindowCreater;
 import com.yzj.util.LogConfig;
 import com.yzj.util.WindowsName;
 import com.yzj.windows.internalwindow.ContentWindow;
-import com.yzj.windows.internalwindow.InWindowCreater;
 
 /**
  * 当前桌面背景，同时也是一个内部桌面
@@ -63,10 +63,11 @@ public class BackGround extends JDesktopPane {
 		super.paintComponent(g);
 		int width = this.getParent().getWidth();
 		int height = this.getParent().getHeight();
+		setBounds(0, 0, width, height);
 		if (backGround != null) {
 			g.drawImage(backGround, 0, 0, width, height, this);
 		}
-		// System.out.println("当前BackGround大小为"+width+"*"+height);
+//		 System.out.println("当前BackGround大小为"+width+"*"+height);
 	}
 
 	/**
