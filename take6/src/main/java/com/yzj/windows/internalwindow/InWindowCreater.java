@@ -1,8 +1,11 @@
 package com.yzj.windows.internalwindow;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 
 import com.yzj.api.InternalWindow;
+import com.yzj.config.Preference;
 import com.yzj.util.WindowsName;
 
 /**
@@ -13,6 +16,9 @@ import com.yzj.util.WindowsName;
  */
 @Component
 public class InWindowCreater {
+	
+	@Resource
+	private Preference preference;
 
 	public InternalWindow create(WindowsName name) {
 
@@ -38,7 +44,8 @@ public class InWindowCreater {
 	 * @return 偏好窗体
 	 */
 	private InternalWindow createPreferenceWindow(String name, boolean state) {
-		InternalWindow preferenceWindow = new PreferenceWindow(name, state);
+		PreferenceWindow preferenceWindow = new PreferenceWindow(name, state);
+		preferenceWindow.setPreference(preference);
 		return preferenceWindow;
 	}
 

@@ -4,13 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import javax.swing.SwingConstants;
 
 import com.yzj.api.InternalWindow;
+import com.yzj.config.Preference;
 
 /**
  * 偏好设置内部窗口
@@ -20,6 +19,8 @@ import com.yzj.api.InternalWindow;
  */
 @SuppressWarnings("serial")
 public class PreferenceWindow extends InternalWindow {
+	
+	private Preference preference;
 
 	private boolean state;
 
@@ -45,6 +46,7 @@ public class PreferenceWindow extends InternalWindow {
 	@Override
 	protected void iniContent() {
 		// TODO 自动生成的方法存根
+		preference.getPf().get("name", "player");
 		JPanel hintPanel = new JPanel();
 		getContentPane().add(hintPanel, BorderLayout.NORTH);
 		JLabel hintlabel = new JLabel("您可以修改昵称以及头像");
@@ -76,6 +78,10 @@ public class PreferenceWindow extends InternalWindow {
 
 		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 		
+	}
+
+	public void setPreference(Preference preference) {
+		this.preference = preference;
 	}
 
 }
