@@ -27,12 +27,11 @@ public class PreferenceWindow extends InternalWindow {
 		super(name);
 		this.state = state;
 		setTitle("偏好设置");
-		setClosable(true);
+		setClosable(state);
 	}
-
+	
 	@Override
-	public void createContent() {
-		// TODO 尚未完成
+	protected void setDisLocation(){		
 		int parentWidth = this.getParent().getWidth();
 		int parentHeight = this.getParent().getHeight();
 		int width = parentWidth / 4;
@@ -40,8 +39,12 @@ public class PreferenceWindow extends InternalWindow {
 		int x = parentWidth * 3 / 8;
 		int y = parentHeight * 1 / 4;
 		setBounds(x, y, width, height);
-		getContentPane().setSize(width, height);
+		getContentPane().setSize(width, height);		
+	}
 
+	@Override
+	protected void iniContent() {
+		// TODO 自动生成的方法存根
 		JPanel hintPanel = new JPanel();
 		getContentPane().add(hintPanel, BorderLayout.NORTH);
 		JLabel hintlabel = new JLabel("您可以修改昵称以及头像");
@@ -72,6 +75,7 @@ public class PreferenceWindow extends InternalWindow {
 		}
 
 		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-
+		
 	}
+
 }
